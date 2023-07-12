@@ -1,0 +1,17 @@
+{
+	"scripts": {
+		"clean": "rm -rf dist || true; mkdir dist || true",
+		"build": "npm run clean && tsc -noEmit && node build/bundle.mjs",
+		"build:dev": "npm run clean && tsc -noEmit && NODE_ENV=development node build/bundle.mjs",
+		"watch": "chokidar \"./src/**\" -c \"npm run build:dev\"",
+		"serve": "serve dist",
+		"dev": "concurrently \"npm run watch\" \"pnpm run serve\""
+	},
+	"devDependencies": {
+		"chokidar-cli": "^3.0.0",
+		"concurrently": "^8.2.0",
+		"esbuild": "0.18.11",
+		"serve": "^14.2.0",
+		"typescript": "^5.1.6"
+	}
+}
