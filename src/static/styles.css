@@ -1,3 +1,65 @@
+@import url('https://fonts.cdnfonts.com/css/tt-norms-pro');
+
+:root {
+	--color-font: #ffffff;
+	--color-background: #111420;
+	--color-foreground: #222633;
+	--color-highlight: #363946;
+
+	--font-general: 'TT Norms Pro', sans-serif;
+}
+
 body {
-	background-color: blue;
+	font-family: var(--font-general);
+	color: var(--color-font);
+	background-color: var(--color-background);
+	text-transform: uppercase;
+}
+
+main {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+section {
+	border: 2px solid var(--color-highlight);
+	padding: 0.5rem 1rem 1rem;
+	background-color: var(--color-foreground);
+	width: 90%;
+	margin: 0.2rem;
+}
+
+h1 {
+	margin: 0 0 0.5rem;
+}
+
+.drop-target {
+	min-height: 30vh;
+	width: 100%;
+	background-color: var(--color-background);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0.7rem 0.4rem;
+}
+
+thead {
+	background-color: var(--color-highlight);
+}
+
+td {
+	background-color: var(--color-background);
+}
+
+th,
+td {
+	padding: 0.5rem;
 }
