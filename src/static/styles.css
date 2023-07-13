@@ -16,10 +16,11 @@ body {
 	color: var(--color-font);
 	background-color: var(--color-background);
 	text-transform: uppercase;
+	padding: 5rem 0;
 }
 
 main {
-	min-height: 100vh;
+	height: 80vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -27,6 +28,8 @@ main {
 }
 
 section {
+	display: flex;
+	flex-direction: column;
 	border: 2px solid var(--color-highlight);
 	background-color: var(--color-foreground);
 	width: 90%;
@@ -39,9 +42,13 @@ h1 {
 	font-size: var(--heading-font-size-general);
 }
 
+#uploader {
+	flex: 1;
+}
+
 #drop-target {
 	box-sizing: border-box;
-	min-height: 30vh;
+	flex: 1;
 	background-color: var(--color-background);
 	display: flex;
 	justify-content: center;
