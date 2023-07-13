@@ -26,6 +26,7 @@ let config = {
 	entryNames: 'entry-[name]-[hash]',
 	chunkNames: 'chunk-[name]-[hash]',
 	bundle: true,
+	target: ['chrome114'],
 	splitting: true,
 	minify: true,
 	outdir: 'dist',
