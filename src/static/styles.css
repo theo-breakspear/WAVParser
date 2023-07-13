@@ -39,7 +39,7 @@ h1 {
 	font-size: var(--heading-font-size-general);
 }
 
-.drop-target {
+#drop-target {
 	box-sizing: border-box;
 	min-height: 30vh;
 	background-color: var(--color-background);
