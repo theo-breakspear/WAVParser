@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"clean": "rm -rf dist || true; mkdir dist || true",
+		"clean": "shx rm -rf dist || true; shx mkdir dist || true",
 		"build": "npm run clean && tsc -noEmit && node build/bundle.mjs",
 		"build:dev": "npm run clean && tsc -noEmit && NODE_ENV=development node build/bundle.mjs",
 		"watch": "chokidar \"./src/**\" -c \"npm run build:dev\"",
@@ -12,6 +12,7 @@
 		"concurrently": "^8.2.0",
 		"esbuild": "0.18.11",
 		"serve": "^14.2.0",
+		"shx": "^0.3.4",
 		"typescript": "^5.1.6"
 	}
 }
