@@ -46,6 +46,14 @@ h1 {
 	flex: 1;
 }
 
+#results.show {
+	display: block;
+}
+
+#results.hide {
+	display: none;
+}
+
 #drop-target {
 	box-sizing: border-box;
 	flex: 1;
