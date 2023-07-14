@@ -54,7 +54,7 @@ h1 {
 	display: none;
 }
 
-#drop-target {
+#drop-zone {
 	box-sizing: border-box;
 	flex: 1;
 	background-color: var(--color-background);
