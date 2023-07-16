@@ -69,6 +69,10 @@ h1 {
 	font-weight: var(--heading-font-weight-general);
 }
 
+#drop-zone.dropped {
+	font-weight: var(--heading-font-weight-general);
+}
+
 table {
 	width: 100%;
 	margin-bottom: 0.7rem;

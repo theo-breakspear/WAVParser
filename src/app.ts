@@ -19,6 +19,14 @@ function initialiseFileDrop() {
 		dropZone.classList.remove('file-over')
 		dropZone.innerText = 'Drag File'
 	})
+
+	dropZone.addEventListener('drop', (event) => {
+		event.preventDefault()
+		dropZone.classList.remove('file-over')
+		dropZone.classList.add('dropped')
+		dropZone.innerText = 'File Dropped'
+		//todo - load and process file
+	})
 }
 
 window.addEventListener('load', () => {
