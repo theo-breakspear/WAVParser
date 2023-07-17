@@ -5,7 +5,7 @@
 		"build:dev": "npm run clean && tsc -noEmit && NODE_ENV=development node build/bundle.mjs",
 		"watch": "chokidar \"./src/**\" -c \"npm run build:dev\"",
 		"serve": "serve dist",
-		"dev": "concurrently \"npm run watch\" \"pnpm run serve\""
+		"dev": "concurrently \"npm run watch\" \"npm run serve\""
 	},
 	"devDependencies": {
 		"chokidar-cli": "^3.0.0",
