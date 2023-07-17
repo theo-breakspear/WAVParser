@@ -15,7 +15,7 @@ export const wavHeaderFormat = [
 		name: 'Format',
 		offset: 8,
 		size: 4,
-		type: 'decimal',
+		type: 'string',
 	},
 	{
 		name: 'Subchunk1ID',
