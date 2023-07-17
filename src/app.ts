@@ -28,6 +28,8 @@ function initialiseFileDrop() {
 		dropZone.classList.remove('file-over')
 		dropZone.classList.add('dropped')
 		dropZone.innerText = 'File Dropped'
+		const file = getFileFromDropEvent(event)
+		console.log(file)
 	})
 }
 
