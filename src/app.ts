@@ -3,8 +3,12 @@ import { getWavMetadata } from './getWavMetadata'
 
 function initialiseFileDrop() {
 	const dropZone = document.getElementById('drop-zone')
+	const results = document.getElementById('results')
 	if (!dropZone) {
 		throw new Error('Could not find dropzone element')
+	}
+	if (!results) {
+		throw new Error('Could not find results element')
 	}
 
 	dropZone.addEventListener('dragover', (event) => {
@@ -29,8 +33,12 @@ function initialiseFileDrop() {
 		dropZone.classList.remove('file-over')
 		dropZone.classList.add('dropped')
 		dropZone.innerText = 'File Dropped'
+
 		const file = getFileFromDropEvent(event)
 		const metadata = await getWavMetadata(file)
+		// pause to show file dropped?
+		results.classList.add('show')
+		dropZone.innerText = 'Drag File'
 		console.log(metadata)
 		/// todo:
 		// do styles for processing
