@@ -1,5 +1,5 @@
+import { WavHeader } from './WavHeader'
 import { getFileFromDropEvent } from './getFileFromDropEvent'
-import { getWavMetadata } from './getWavMetadata'
 
 function initialiseFileDrop() {
 	const dropZone = document.getElementById('drop-zone')
@@ -35,13 +35,13 @@ function initialiseFileDrop() {
 			dropZone.classList.add('dropped')
 			dropZone.innerText = 'File Dropped'
 
-			const metadata = await getWavMetadata(file)
+			const header = new WavHeader(file)
 
 			results.classList.add('show')
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
 
-			console.log(metadata)
+			console.log(header)
 		} catch (e: any) {
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
