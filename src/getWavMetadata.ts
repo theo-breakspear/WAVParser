@@ -18,5 +18,10 @@ export async function getWavMetadata(file: File) {
 			throw new Error('unrecognised type key in wavHeaderFormat')
 		}
 	}
+	/* todo - consider if metadata wants interface
+	 */
+	if (metadata.Format !== 'WAVE' || metadata.ChunkID !== 'RIFF') {
+		throw new Error('File does not contain valid wav data')
+	}
 	return metadata
 }
