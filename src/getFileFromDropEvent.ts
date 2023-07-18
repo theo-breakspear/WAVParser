@@ -1,7 +1,6 @@
 export function getFileFromDropEvent(event: DragEvent) {
-	if (event.dataTransfer?.files) {
+	if (event.dataTransfer?.files[0]) {
 		return event.dataTransfer.files[0]
-	} else {
-		throw new Error('No file dropped')
 	}
+	throw new Error('No file dropped')
 }
