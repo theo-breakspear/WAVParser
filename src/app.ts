@@ -28,17 +28,20 @@ function initialiseFileDrop() {
 
 	dropZone.addEventListener('drop', async (event) => {
 		event.preventDefault()
-		const file = getFileFromDropEvent(event)
 		dropZone.classList.remove('file-over')
-		dropZone.classList.add('dropped')
-		dropZone.innerText = 'File Dropped'
-		// pause to show file dropped?
 		try {
+			const file = getFileFromDropEvent(event)
+
+			dropZone.classList.add('dropped')
+			dropZone.innerText = 'File Dropped'
+
 			const metadata = await getWavMetadata(file)
+
 			results.classList.add('show')
-			console.log(metadata)
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
+
+			console.log(metadata)
 		} catch (e: any) {
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
