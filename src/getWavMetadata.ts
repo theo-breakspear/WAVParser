@@ -2,7 +2,9 @@ import { wavHeaderFormat } from './wavHeaderFormat'
 
 export async function getWavMetadata(file: File) {
 	let metadata: Record<string, string | number> = {}
-
+	if (!file?.name.includes('.wav')) {
+		throw new Error('file is not a .wav')
+	}
 	for (let field of wavHeaderFormat) {
 		const blob = file.slice(field.offset, field.offset + field.size)
 		if (field.type == 'string') {
