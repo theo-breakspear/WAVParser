@@ -17,10 +17,8 @@ function initialiseFileDrop() {
 
 	dropZone.addEventListener('dragenter', (event) => {
 		event.preventDefault()
-		if (event.dataTransfer?.items[0]?.kind === 'file') {
-			dropZone.classList.add('file-over')
-			dropZone.innerText = 'drop here'
-		}
+		dropZone.classList.add('file-over')
+		dropZone.innerText = 'drop here'
 	})
 
 	dropZone.addEventListener('dragleave', (event) => {
@@ -41,7 +39,6 @@ function initialiseFileDrop() {
 		dropZone.innerText = 'Drag File'
 		console.log(metadata)
 		/// todo:
-		// do styles for processing
 		// load metadata in results
 	})
 }
