@@ -11,7 +11,7 @@ import * as fs from 'node:fs'
 const HTML_SRC = './src/static/index.html'
 const HTML_DIST = './dist/index.html'
 const CSS_SRC = './src/static/styles.css'
-const APP_SRC = './src/app.ts'
+const APP_SRC = './src/app/app.ts'
 
 //copy html
 fs.copyFile(HTML_SRC, HTML_DIST, (err) => {

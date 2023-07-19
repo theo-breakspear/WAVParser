@@ -1,5 +1,5 @@
-import { WavHeader } from './WavHeader'
-import { getFileFromDropEvent } from './getFileFromDropEvent'
+import { WavHeader } from './classes/WavHeader'
+import { getFileFromDropEvent } from './utils'
 
 function initialiseFileDrop() {
 	const dropZone = document.getElementById('drop-zone')
@@ -35,7 +35,9 @@ function initialiseFileDrop() {
 			dropZone.classList.add('dropped')
 			dropZone.innerText = 'File Dropped'
 
-			const header = new WavHeader(file)
+			const header = new WavHeader()
+			await header.populate(file)
+			console.log(header)
 
 			results.classList.add('show')
 			dropZone.classList.remove('dropped')
