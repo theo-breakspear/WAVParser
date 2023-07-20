@@ -1,5 +1,4 @@
-import { WavHeaderFactory } from './classes/WavHeaderFactory'
-import { getFileFromDropEvent, insertTableRow } from './utils'
+import { WavHeader } from './classes/WavHeader'
 
 function initialiseFileDrop() {
 	const dropZone = document.getElementById('drop-zone')
@@ -21,7 +20,7 @@ function initialiseFileDrop() {
 		dropZone.innerText = 'drop here'
 	})
 
-	dropZone.addEventListener('dragleave', (event) => {
+	dropZone.addEventListener('dragleave', () => {
 		dropZone.classList.remove('file-over')
 		dropZone.innerText = 'Drag File'
 	})
@@ -29,31 +28,22 @@ function initialiseFileDrop() {
 	dropZone.addEventListener('drop', async (event) => {
 		event.preventDefault()
 		dropZone.classList.remove('file-over')
-		try {
-			const wavFile = getFileFromDropEvent(event)
+		const { getFileFromDropEvent, insertTableRow } = await import('./utils')
+		const { WavHeaderFactory } = await import('./classes/WavHeaderFactory')
 
+		let wavFile: File
+		let wavHeader: WavHeader
+		try {
+			wavFile = getFileFromDropEvent(event)
 			dropZone.classList.add('dropped')
 			dropZone.innerText = 'File Dropped'
-
-			const wavHeader = await new WavHeaderFactory().create(wavFile)
-
-			const tableBody = document.querySelector('table tbody')
-			if (!tableBody) {
-				throw new Error('Could not find table body element')
-			}
-
-			insertTableRow(tableBody, 'Chunk ID', `${wavHeader.chunkID}`)
-			insertTableRow(tableBody, 'Chunk Size', `${wavHeader.chunkSize}`)
-			insertTableRow(tableBody, 'Format', `${wavHeader.format}`)
-			insertTableRow(tableBody, 'Sub Chunk ID', `${wavHeader.subchunk1ID}`)
-			insertTableRow(tableBody, 'Audio Format', `${wavHeader.audioFormat}`)
-			insertTableRow(tableBody, 'Num Channels', `${wavHeader.numChannels}`)
-			insertTableRow(tableBody, 'Sample Rate', `${wavHeader.sampleRate}`)
-			insertTableRow(tableBody, 'Byte Rate', `${wavHeader.byteRate}`)
-			insertTableRow(tableBody, 'Block Align', `${wavHeader.blockAlign}`)
-			insertTableRow(tableBody, 'Bits Per Sample', `${wavHeader.bitsPerSample}`)
-
-			results.classList.add('show')
+			//add delay so user sees File Dropped message according to design?
+		} catch (e: any) {
+			throw new Error(e.message)
+		}
+		dropZone.innerText = 'Processing'
+		try {
+			wavHeader = await new WavHeaderFactory().create(wavFile)
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
 		} catch (e: any) {
@@ -61,7 +51,23 @@ function initialiseFileDrop() {
 			dropZone.innerText = 'Drag File'
 			throw new Error(e.message)
 		}
+		const tableBody = document.querySelector('table tbody')
+		if (!tableBody) {
+			throw new Error('Could not find table body element')
+		}
 
+		insertTableRow(tableBody, 'Chunk ID', `${wavHeader.chunkID}`)
+		insertTableRow(tableBody, 'Chunk Size', `${wavHeader.chunkSize}`)
+		insertTableRow(tableBody, 'Format', `${wavHeader.format}`)
+		insertTableRow(tableBody, 'Sub Chunk ID', `${wavHeader.subchunk1ID}`)
+		insertTableRow(tableBody, 'Audio Format', `${wavHeader.audioFormat}`)
+		insertTableRow(tableBody, 'Num Channels', `${wavHeader.numChannels}`)
+		insertTableRow(tableBody, 'Sample Rate', `${wavHeader.sampleRate}`)
+		insertTableRow(tableBody, 'Byte Rate', `${wavHeader.byteRate}`)
+		insertTableRow(tableBody, 'Block Align', `${wavHeader.blockAlign}`)
+		insertTableRow(tableBody, 'Bits Per Sample', `${wavHeader.bitsPerSample}`)
+
+		results.classList.add('show')
 		dropZone.classList.remove('dropped')
 		dropZone.innerText = 'Drag File'
 	})
