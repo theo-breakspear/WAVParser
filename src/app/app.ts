@@ -50,6 +50,10 @@ function initialiseFileDrop() {
 			throw new Error('Could not find table body element')
 		}
 
+		while (tableBody.firstChild) {
+			tableBody.removeChild(tableBody.firstChild)
+		}
+
 		const { insertTableRow } = await import('./utils')
 		insertTableRow(tableBody, 'Chunk ID', `${wavHeader.chunkID}`)
 		insertTableRow(tableBody, 'Chunk Size', `${wavHeader.chunkSize}`)
