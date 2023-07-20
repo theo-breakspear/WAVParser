@@ -37,11 +37,9 @@ function initialiseFileDrop() {
 			wavFile = getFileFromDropEvent(event)
 			dropZone.classList.add('dropped')
 			dropZone.innerText = 'File Dropped'
-			//add delay so user sees File Dropped message according to design?
 		} catch (e: any) {
 			throw new Error(e.message)
 		}
-		dropZone.innerText = 'Processing'
 		try {
 			wavHeader = await new WavHeaderFactory().create(wavFile)
 			dropZone.classList.remove('dropped')
