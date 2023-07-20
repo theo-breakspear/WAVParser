@@ -1,8 +1,6 @@
 import { WavHeader } from './WavHeader'
 
 export class WavHeaderFactory {
-	qconstructor() {}
-
 	async create(wavFile: File): Promise<WavHeader> {
 		const chunkID = await this.setHeaderField(0, 4, true, wavFile)
 		const chunkSize = await this.setHeaderField(4, 4, false, wavFile)

@@ -1,5 +1,3 @@
-import { WavHeader } from './classes/WavHeader'
-
 function initialiseFileDrop() {
 	const dropZone = document.getElementById('drop-zone')
 	const results = document.getElementById('results')
@@ -27,21 +25,18 @@ function initialiseFileDrop() {
 
 	dropZone.addEventListener('drop', async (event) => {
 		event.preventDefault()
+		const file = event.dataTransfer?.files[0]
 		dropZone.classList.remove('file-over')
-		const { getFileFromDropEvent, insertTableRow } = await import('./utils')
-		const { WavHeaderFactory } = await import('./classes/WavHeaderFactory')
+		if (!file) {
+			throw new Error('No file dropped')
+		}
+		dropZone.classList.add('dropped')
+		dropZone.innerText = 'File Dropped'
 
-		let wavFile: File
-		let wavHeader: WavHeader
+		let wavHeader
 		try {
-			wavFile = getFileFromDropEvent(event)
-			dropZone.classList.add('dropped')
-			dropZone.innerText = 'File Dropped'
-		} catch (e: any) {
-			throw new Error(e.message)
-		}
-		try {
-			wavHeader = await new WavHeaderFactory().create(wavFile)
+			const { WavHeaderFactory } = await import('./classes/WavHeaderFactory')
+			wavHeader = await new WavHeaderFactory().create(file)
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
 		} catch (e: any) {
@@ -49,11 +44,13 @@ function initialiseFileDrop() {
 			dropZone.innerText = 'Drag File'
 			throw new Error(e.message)
 		}
+
 		const tableBody = document.querySelector('table tbody')
 		if (!tableBody) {
 			throw new Error('Could not find table body element')
 		}
 
+		const { insertTableRow } = await import('./utils')
 		insertTableRow(tableBody, 'Chunk ID', `${wavHeader.chunkID}`)
 		insertTableRow(tableBody, 'Chunk Size', `${wavHeader.chunkSize}`)
 		insertTableRow(tableBody, 'Format', `${wavHeader.format}`)

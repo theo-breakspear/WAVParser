@@ -1,10 +1,3 @@
-export function getFileFromDropEvent(event: DragEvent) {
-	if (event.dataTransfer?.files[0]) {
-		return event.dataTransfer.files[0]
-	}
-	throw new Error('No file dropped')
-}
-
 export function insertTableRow(tableBody: Element, col1: string, col2: string) {
 	const newRow = document.createElement('tr')
 	const cell1 = document.createElement('td')
