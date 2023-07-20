@@ -1,5 +1,5 @@
-import { WavHeader } from './classes/WavHeader'
-import { getFileFromDropEvent } from './utils'
+import { WavHeaderFactory } from './classes/WavHeaderFactory'
+import { getFileFromDropEvent, insertTableRow } from './utils'
 
 function initialiseFileDrop() {
 	const dropZone = document.getElementById('drop-zone')
@@ -30,20 +30,32 @@ function initialiseFileDrop() {
 		event.preventDefault()
 		dropZone.classList.remove('file-over')
 		try {
-			const file = getFileFromDropEvent(event)
+			const wavFile = getFileFromDropEvent(event)
 
 			dropZone.classList.add('dropped')
 			dropZone.innerText = 'File Dropped'
 
-			const header = new WavHeader()
-			await header.populate(file)
-			console.log(header)
+			const wavHeader = await new WavHeaderFactory().create(wavFile)
+
+			const tableBody = document.querySelector('table tbody')
+			if (!tableBody) {
+				throw new Error('Could not find table body element')
+			}
+
+			insertTableRow(tableBody, 'Chunk ID', `${wavHeader.chunkID}`)
+			insertTableRow(tableBody, 'Chunk Size', `${wavHeader.chunkSize}`)
+			insertTableRow(tableBody, 'Format', `${wavHeader.format}`)
+			insertTableRow(tableBody, 'Sub Chunk ID', `${wavHeader.subchunk1ID}`)
+			insertTableRow(tableBody, 'Audio Format', `${wavHeader.audioFormat}`)
+			insertTableRow(tableBody, 'Num Channels', `${wavHeader.numChannels}`)
+			insertTableRow(tableBody, 'Sample Rate', `${wavHeader.sampleRate}`)
+			insertTableRow(tableBody, 'Byte Rate', `${wavHeader.byteRate}`)
+			insertTableRow(tableBody, 'Block Align', `${wavHeader.blockAlign}`)
+			insertTableRow(tableBody, 'Bits Per Sample', `${wavHeader.bitsPerSample}`)
 
 			results.classList.add('show')
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
-
-			console.log(header)
 		} catch (e: any) {
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
@@ -52,9 +64,6 @@ function initialiseFileDrop() {
 
 		dropZone.classList.remove('dropped')
 		dropZone.innerText = 'Drag File'
-
-		/// todo:
-		// load metadata in results
 	})
 }
 
