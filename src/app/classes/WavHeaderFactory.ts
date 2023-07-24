@@ -14,6 +14,10 @@ export class WavHeaderFactory {
 		const blockAlign = await this.setHeaderField(32, 2, false, wavFile)
 		const bitsPerSample = await this.setHeaderField(34, 2, false, wavFile)
 
+		if (chunkID !== 'RIFF' || format !== 'WAVE') {
+			throw new Error('File does not contain valid wave data')
+		}
+
 		return new WavHeader(
 			chunkID,
 			chunkSize,
