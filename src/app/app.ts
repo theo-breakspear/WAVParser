@@ -34,8 +34,8 @@ function initialiseFileDrop() {
 		dropZone.innerText = 'File Dropped'
 
 		let wavHeader
+		const { WavHeaderFactory } = await import('./classes/WavHeaderFactory')
 		try {
-			const { WavHeaderFactory } = await import('./classes/WavHeaderFactory')
 			wavHeader = await new WavHeaderFactory().create(file)
 			dropZone.classList.remove('dropped')
 			dropZone.innerText = 'Drag File'
