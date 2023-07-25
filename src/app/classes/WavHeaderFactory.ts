@@ -1,5 +1,3 @@
-import { WavHeader } from './WavHeader'
-
 export class WavHeaderFactory {
 	async create(wavFile: File): Promise<WavHeader> {
 		const chunkID = await this.setHeaderField(0, 4, true, wavFile)
@@ -47,4 +45,22 @@ export class WavHeaderFactory {
 		const blob = wavFile.slice(offset, offset + size)
 		return await (parseAsText ? parseText(blob) : parseInt(blob))
 	}
+}
+
+type HeaderField = string | number
+
+class WavHeader {
+	constructor(
+		public chunkID: HeaderField,
+		public chunkSize: HeaderField,
+		public format: HeaderField,
+		public subchunk1ID: HeaderField,
+		public subchunk1Size: HeaderField,
+		public audioFormat: HeaderField,
+		public numChannels: HeaderField,
+		public sampleRate: HeaderField,
+		public byteRate: HeaderField,
+		public blockAlign: HeaderField,
+		public bitsPerSample: HeaderField
+	) {}
 }
