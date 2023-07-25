@@ -5,7 +5,8 @@
 		"build:dev": "npm run clean && tsc -noEmit && NODE_ENV=development node build/bundle.mjs",
 		"watch": "chokidar \"./src/**\" -c \"npm run build:dev\"",
 		"serve": "serve dist",
-		"dev": "concurrently \"npm run watch\" \"npm run serve\""
+		"dev": "concurrently \"npm run watch\" \"npm run serve\"",
+		"test": "jest"
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.3",
